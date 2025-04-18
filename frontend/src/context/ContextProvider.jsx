@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { createContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const authContext = createContext()
 
@@ -8,7 +9,7 @@ const authContext = createContext()
 function ContextProvider({ children }) {
 
 
-
+    const navigate = useNavigate()
     const [user, setuser] = useState()
     const backendurl = import.meta.env.VITE_BACKEND_URL
 
@@ -16,9 +17,10 @@ function ContextProvider({ children }) {
         setuser(user)
     }
 
-    const logout  = ()=>{
+    const logout = () => {
         localStorage.removeItem("token")
         setuser(null)
+        navigate("/login")
     }
 
 
@@ -26,7 +28,7 @@ function ContextProvider({ children }) {
 
         const verifyuser = async () => {
             try {
-                const response = await axios.get(backendurl+"/api/auth/verify", {
+                const response = await axios.get(backendurl + "/api/auth/verify", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
@@ -51,7 +53,7 @@ function ContextProvider({ children }) {
 
     return (
 
-        <authContext.Provider value={{ user, login,logout,backendurl }}>
+        <authContext.Provider value={{ user, login, logout, backendurl }}>
             {children}
         </authContext.Provider>
 
