@@ -19,7 +19,7 @@ function Home() {
 
   const [filterednotes, setfilterednotes] = useState([])
 
-  const {backendurl} = useAuth()
+  const { backendurl } = useAuth()
 
 
   useEffect(() => {
@@ -44,8 +44,15 @@ function Home() {
 
 
   const fetchNotes = async () => {
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Login to your account")
+    }
+
+
     try {
-      const { data } = await axios.get(backendurl+"/api/note", {
+      const { data } = await axios.get(backendurl + "/api/note", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
 
@@ -75,7 +82,7 @@ function Home() {
   const addNote = async (title, description) => {
     try {
       const response = await axios.post(
-        backendurl+'/api/note/add',
+        backendurl + '/api/note/add',
         { title, description }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -104,7 +111,7 @@ function Home() {
   const Editnote = async (id, title, description) => {
     try {
       const response = await axios.put(
-        backendurl+`/api/note/${id}`,
+        backendurl + `/api/note/${id}`,
         { title, description }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -133,7 +140,7 @@ function Home() {
   const deleteNote = async (id) => {
     try {
       const response = await axios.delete(
-        backendurl+`/api/note/${id}`,
+        backendurl + `/api/note/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`

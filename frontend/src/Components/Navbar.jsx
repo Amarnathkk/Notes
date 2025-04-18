@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/ContextProvider.jsx'
 
@@ -6,6 +6,9 @@ import { useAuth } from '../context/ContextProvider.jsx'
 function Navbar({ setquery }) {
 
     const { user, logout } = useAuth()
+
+
+
 
 
     return (
@@ -24,8 +27,8 @@ function Navbar({ setquery }) {
 
                 {!user ? (
                     <>
-                        <Link to="/login" className='bg-indigo-500 px-4 py-2 rounded mr-4 hover:bg-indigo-400'>Login</Link>
-                        <Link to="/register" className='bg-green-500 px-4 py-2 rounded mr-4 hover:bg-green-400'>SignUp</Link>
+                        <Link to="/login" className='bg-indigo-700 px-4 py-2 rounded mr-4 hover:bg-indigo-400'>Login</Link>
+                        <Link to="/register" className='bg-green-600 px-4 py-2 rounded mr-4 hover:bg-green-400'>SignUp</Link>
                     </>
                 ) : (
                     <>

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/ContextProvider.jsx'
+import { toast } from 'react-toastify'
 
 
 function Login() {
@@ -9,13 +10,13 @@ function Login() {
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
   const navigate = useNavigate()
-  const { login,backendurl } = useAuth()
+  const { login, backendurl } = useAuth()
 
   const handlesubmit = async (e) => {
     e.preventDefault()
     try {
       const response = await axios.post(
-        backendurl+'/api/auth/login',
+        backendurl + '/api/auth/login',
         { email, password }
       );
 
@@ -24,6 +25,11 @@ function Login() {
         localStorage.setItem("token", response.data.token)
 
         navigate("/")
+
+      }
+
+      else {
+        toast.error("Invalid credentials. Please try again.")
       }
 
 
