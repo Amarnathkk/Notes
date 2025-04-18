@@ -9,13 +9,13 @@ function Login() {
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { login,backendurl } = useAuth()
 
   const handlesubmit = async (e) => {
     e.preventDefault()
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/auth/login',
+        backendurl+'/api/auth/login',
         { email, password }
       );
 

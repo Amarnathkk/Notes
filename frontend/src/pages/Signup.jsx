@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useAuth } from '../context/ContextProvider'
 
 
 
@@ -12,6 +13,7 @@ function Signup() {
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
     const navigate = useNavigate()
+    const {backendurl} = useAuth()
 
     const handlesubmit = async (e) => {
         
@@ -19,7 +21,7 @@ function Signup() {
        
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/auth/register',
+                backendurl+'/api/auth/register',
                 { name, email, password }
             );
             

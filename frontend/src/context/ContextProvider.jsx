@@ -10,6 +10,7 @@ function ContextProvider({ children }) {
 
 
     const [user, setuser] = useState()
+    const backendurl = import.meta.env.VITE_BACKEND_URL
 
     const login = (user) => {
         setuser(user)
@@ -25,7 +26,7 @@ function ContextProvider({ children }) {
 
         const verifyuser = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/auth/verify", {
+                const response = await axios.get(backendurl+"/api/auth/verify", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
@@ -50,7 +51,7 @@ function ContextProvider({ children }) {
 
     return (
 
-        <authContext.Provider value={{ user, login,logout }}>
+        <authContext.Provider value={{ user, login,logout,backendurl }}>
             {children}
         </authContext.Provider>
 
